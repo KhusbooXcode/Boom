@@ -1,0 +1,51 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+
+@inject NavigationManager NavManager
+
+<div class="card col-md-6 mx-auto offset-md-3 mt-5" style="border:none;">
+    <div class="card-body">
+        <EditForm Model="@model" OnValidSubmit="@OnLoginClick">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+
+                <label>Username</label>
+                <InputText @bind-Value="model.Username" class="form-control" re />
+                <ValidationMessage For="@(() => model.Username)" />
+            </div>
+            <div class="form-group">
+
+                <label>Password</label>
+                <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => model.Password)" />
+
+            </div>
+            <button class="btn btn-primary">
+                Login
+            </button>
+        </EditForm>
+    </div>
+</div>
+
+@code{
+    public ModelLogin model = new ModelLogin();
+    public class ModelLogin
+    {
+        [Required]
+        public string Username { get; set; } = "admin";
+
+        [Required]
+        public string Password { get; set; } = "admin";
+    }
+
+    private EditContext editContext;
+    private string url = "https://boomsales.azurewebsites.net/";
+
+    void OnLoginClick()
+    {
+
+        NavManager.NavigateTo("/boomsales", forceLoad: true);
+
+    }
+}
+
