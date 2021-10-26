@@ -8,10 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 namespace Boom
 {
-    
+    [ResponseCache(NoStore = true)]
     public class Program
     {
         public static async Task Main(string[] args)
@@ -20,7 +21,8 @@ namespace Boom
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+           
+            
             await builder.Build().RunAsync();
         }
     }

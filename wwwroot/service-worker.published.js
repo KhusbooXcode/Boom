@@ -19,7 +19,7 @@ async function onInstall(event) {
         .filter(asset => offlineAssetsInclude.some(pattern => pattern.test(asset.url)))
         .filter(asset => !offlineAssetsExclude.some(pattern => pattern.test(asset.url)))
         .map(asset => new Request(asset.url, { integrity: asset.hash }));
-    await caches.open(cacheName).then(cache => cache.addAll(assetsRequests));
+    //await caches.open(cacheName).then(cache => cache.addAll(assetsRequests));
 }
 
 async function onActivate(event) {
@@ -33,6 +33,7 @@ async function onActivate(event) {
 }
 
 async function onFetch(event) {
+    console.info('Service worker: Fetch');
     let cachedResponse = null;
     if (event.request.method === 'GET') {
         // For all navigation requests, try to serve index.html from cache
