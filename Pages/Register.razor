@@ -1,0 +1,130 @@
+﻿@page "/register"
+@using System.ComponentModel.DataAnnotations
+
+@inject NavigationManager NavManager
+
+<div class="d-flex flex-column flex-root">
+
+    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
+
+        <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+
+            <a href="../../demo1/dist/index.html" class="">
+                    <img alt="Logo" src="4.png" class="h-70px w-150px">
+                </a>
+
+            <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                <!--begin::Form-->
+                <EditForm Model="@model" OnValidSubmit="@OnRegistrationClick" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form" action="#">
+                    <div class="mb-10 text-center">
+                        <!--begin::Title-->
+                        <h1 class="text-dark mb-3">Create an Account</h1>
+                        <!--end::Title-->
+                        <!--begin::Link-->
+                        <div class="text-gray-400 fw-bold fs-4">
+                            Already have an account?
+                            <a href="/" class="link-primary fw-bolder">Sign in here</a>
+                        </div>
+                        <!--end::Link-->
+                    </div>
+                    <DataAnnotationsValidator />
+
+                    <div class="row fv-row mb-7 fv-plugins-icon-container">
+                        <!--begin::Col-->
+                        <div class="col-xl-6">
+                            <label class="form-label fw-bolder text-dark fs-6">First Name</label>
+                            <InputText @bind-Value="@model.Firstname" class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="first-name" autocomplete="off" />
+                            <ValidationMessage For="@(() => model.Firstname)" />
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-xl-6">
+                            <label class="form-label fw-bolder text-dark fs-6">Last Name</label>
+                            <InputText @bind-Value="@model.Lastname" class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="last-name" autocomplete="off" />
+                            <ValidationMessage For="@(() => model.Lastname)" />
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row fv-row mb-7 fv-plugins-icon-container">
+                        <!--begin::Col-->
+                        <div class="col-xl-6">
+                            <label class="form-label fw-bolder text-dark fs-6">Mobile No.</label>
+                            <InputText @bind-Value="@model.MobileNo" class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="first-name" autocomplete="off" />
+                            <ValidationMessage For="@(() => model.MobileNo)" />
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-xl-6">
+                            <label class="form-label fw-bolder text-dark fs-6">Email</label>
+                            <InputText @bind-Value="@model.Email" class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="last-name" autocomplete="off" />
+                            <ValidationMessage For="@(() => model.Email)" />
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row fv-row mb-7 fv-plugins-icon-container">
+                        <!--begin::Col-->
+                        <div class="col-xl-6">
+                            <label class="form-label fw-bolder text-dark fs-6">National ID</label>
+                            <InputText @bind-Value="@model.NationalID" class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="first-name" autocomplete="off" />
+                            <ValidationMessage For="@(() => model.NationalID)" />
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-xl-6">
+                            <label class="form-label fw-bolder text-dark fs-6">Password</label>
+                            <InputText @bind-Value="@model.Password" class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="last-name" autocomplete="off" />
+                            <ValidationMessage For="@(() => model.Password)" />
+                        </div>
+                        <!--end::Col-->
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit"  class="btn btn-lg btn-primary">
+                            <span class="indicator-label">Register</span>
+                            <span class="indicator-progress">
+                                Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+
+                </EditForm>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!--end::Authentication - Sign-in-->
+</div>
+@code{
+    public RegistrationModel model = new RegistrationModel();
+    public class RegistrationModel
+    {
+        [Required]
+        public string Firstname { get; set; }
+
+        [Required]
+        public string Lastname { get; set; }
+
+        [Required]
+        public string MobileNo { get; set; }
+
+        [Required]
+        public string NationalID { get; set; }
+
+
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+    }
+
+    void OnRegistrationClick()
+    {
+
+        NavManager.NavigateTo("/dashboard", forceLoad: true);
+
+    }
+}
