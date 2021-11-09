@@ -1,6 +1,7 @@
 ﻿@page "/account/register"
 @using System.ComponentModel.DataAnnotations
 
+@inject IJSRuntime JsRuntime
 @inject NavigationManager NavManager
 
 <a href="../../demo1/dist/index.html" class="mb-12">
@@ -9,7 +10,7 @@
 
 <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
-    <EditForm Model="@model" OnValidSubmit="@OnRegistrationClick" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form" action="#">
+    <EditForm Model="@model" OnValidSubmit="@OnRegistrationClick" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_up_form" action="#">
         <div class="mb-10 text-center">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">Create an Account</h1>
@@ -56,6 +57,8 @@
 
             <!--end::Col-->
         </div>
+
+
         <div class="mb-10 row fv-row fv-plugins-icon-container" data-kt-password-meter="true">
             <!--begin::Wrapper-->
             <div class="mb-1">
@@ -98,7 +101,7 @@
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-lg btn-primary">
+            <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
                 <span class="indicator-label">Register</span>
                 <span class="indicator-progress">
                     Please wait...
@@ -145,4 +148,14 @@
         NavManager.NavigateTo("/dashboard", forceLoad: true);
 
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("initializeRegisterPage", "");
+        }
+    }
+
+
 }
